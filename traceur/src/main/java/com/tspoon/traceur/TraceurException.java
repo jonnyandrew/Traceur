@@ -50,7 +50,12 @@ public class TraceurException extends RuntimeException {
             }
         }
 
-        t.initCause(this);
+        try {
+            t.initCause(this);
+        } catch(Exception e) {
+            // initCause is only designed to be called once and if it's already been called, there's
+            // not much we can do about it.
+        }
 
         return throwable;
     }
